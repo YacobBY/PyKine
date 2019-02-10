@@ -6,7 +6,6 @@ IK = InverseKinematics(3, 400, 400)
 
 
 def drawLine(event):
-    # def __init__(self, totalSegments, beginX, beginY, graphics):
     mouseX, mouseY = event.x, event.y
 
     IK.update(mouseX, mouseY)
