@@ -3,6 +3,7 @@ import tkinter as tk
 
 segmentArray = []
 
+
 class Segment:
     previousSegment = 0
     startX = 0
@@ -15,7 +16,6 @@ class Segment:
     def __init__(self, segmentLength):
 
         self.segmentLength = segmentLength
-
 
     def setPreviousSegment(self, previousSegment):
         self.previousSegment = previousSegment
@@ -50,21 +50,21 @@ class InverseKinematics:
     startY = 0
     segments = []
 
-    def __init__(self, totalSegments,  beginX,  beginY,  graphics):
-        amountOfSegments = totalSegments;
-        startX = beginX;
-        startY = beginY;
-        canvas = graphics;
-
+    # Constructor
+    def __init__(self, totalSegments, beginX, beginY, graphics):
+        self.amountOfSegments = totalSegments
+        self.startX = beginX
+        self.startY = beginY
+        self.canvas = graphics
 
     def addNewSegment(self):
-        segment = Segment(50) #segment length
+        segment = Segment(50)  # segment length
         if (self.previousSegment == 0):
             segment.startX = self.startX
             segment.startY = self.startY
         else:
-            segment.startX = self.previousSegment.endX;
-            segment.startY = self.previousSegment.endY;
+            segment.startX = self.previousSegment.endX
+            segment.startY = self.previousSegment.endY
             segment.setPreviousSegment(self.previousSegment)
         self.segments.append(segment)
         self.previousSegment = segment
@@ -73,22 +73,30 @@ class InverseKinematics:
         for segment in segmentArray:
             self.addNewSegment()
 
-
-
-
+    def update(self, x, y):
+        self.previousSegment.placeSegment(x.y)
+        for segment in segmentArray:
+            if segment.previousSegment ==0:
+                segment.startX = self.startX
+                segment.startY = self.startY
+            else:
+                segment.startX = segment.previousSegment.endX
+                segment.startY = segment.previousSegment.endY
 
 
 def drawLine(event):
+
+
     canvas.delete("all")
     x, y = event.x, event.y
     if canvas.old_coords:
         x1, y1 = canvas.old_coords
+        
         canvas.create_line(200, 200, x1, y1)
     canvas.old_coords = x, y
 
 
 root = tk.Tk()
-
 canvas = tk.Canvas(root, width=400, height=400)
 canvas.pack()
 canvas.old_coords = None
