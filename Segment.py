@@ -37,8 +37,8 @@ class Segment:
 class InverseKinematics:
     amountOfSegments = 0
     previousSegment = 0
-    startX = 200
-    startY = 200
+    startX = 0
+    startY = 0
     segments = []
 
     # Constructor
@@ -66,7 +66,7 @@ class InverseKinematics:
             self.addNewSegment()
 
     def update(self, x, y):
-        self.previousSegment.placeSegment(x.y)
+        self.previousSegment.placeSegment(x, y)
         for segment in self.segments:
             if segment.previousSegment == 0:
                 segment.startX = self.startX
@@ -81,17 +81,17 @@ def drawLine(event):
 
     canvas.delete("all")
     # print("start line")
-    x, y = event.x, event.y
+    mouseX, mouseY = event.x, event.y
     if canvas.old_coords:
         x1, y1 = canvas.old_coords
         segments = InverseKinematics(3, 200, 200).segments
         print(segments.__len__())
         for segment in segments:
-            canvas.create_line(segment.startY, 200, x1, y1)
-            print("drawing segment line", segment.startY)
+            canvas.create_line(segment.startY, 200, mouseX, mouseY)
+            # print("drawing segment line", segment.startY)
 
         canvas.create_line(200, 200, x1, y1)
-    canvas.old_coords = x, y
+    canvas.old_coords = mouseX, mouseY
 
 
 root = tk.Tk()
