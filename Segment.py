@@ -3,33 +3,27 @@ import tkinter as tk
 
 
 class Segment:
-    previousSegment = 0
     startX = 0
     startY = 0
     endX = 0
     endY = 0
     rotateAngle = 0
+    previousSegment = 0
+    segmentLength = 50
 
     # constructor
-    def __init__(self, segmentLength):
-        self.segmentLength = segmentLength
+    def __init__(self, segmentLen):
+        self.segmentLength = segmentLen
 
     def setPreviousSegment(self, previousSegment):
         self.previousSegment = previousSegment
-
-    def maxRotationX(self, xDiff):
-        print("aa")
-        if (xDiff < -40):
-            xDiff = -40
-        if (xDiff > 40):
-            xDiff = 40
-        return xDiff;
 
     def rotateTo(self, x, y):
         xDiff = x - self.startX
         yDiff = y - self.startY
         self.rotateAngle = math.atan2(yDiff, xDiff)
         self.endX = self.startX + math.cos(self.rotateAngle) * self.segmentLength
+        self.endY = self.startY + math.sin(self.rotateAngle) * self.segmentLength
 
     def placeSegment(self, x, y):
         self.rotateTo(x, y)
@@ -68,7 +62,7 @@ class InverseKinematics:
         self.previousSegment = segment
 
     def addSegments(self):
-        for x in range (0, self.amountOfSegments):
+        for x in range(0, self.amountOfSegments):
             self.addNewSegment()
 
     def update(self, x, y):
@@ -94,12 +88,10 @@ def drawLine(event):
         print(segments.__len__())
         for segment in segments:
             canvas.create_line(segment.startY, 200, x1, y1)
-            print("drawing segment line")
+            print("drawing segment line", segment.startY)
 
         canvas.create_line(200, 200, x1, y1)
     canvas.old_coords = x, y
-
-
 
 
 root = tk.Tk()
