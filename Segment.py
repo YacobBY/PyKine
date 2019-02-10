@@ -58,10 +58,11 @@ class InverseKinematics:
             segment.startX = self.previousSegment.endX
             segment.startY = self.previousSegment.endY
             segment.setPreviousSegment(self.previousSegment)
+        self.previousSegment = segment
         self.segments.append(segment)
         print(segment.startX, segment.startY)
         print(segment.endX, segment.endY)
-        self.previousSegment = segment
+
 
     def addSegments(self):
         for x in range(0, self.amountOfSegments):
@@ -91,12 +92,12 @@ def drawLine(event):
     if canvas.old_coords:
         x1, y1 = canvas.old_coords
 
-        print(segments.__len__())
+        # print(segments.__len__())
         for segment in segments:
-            canvas.create_line(segment.startY, 200, mouseX, mouseY)
+            canvas.create_line(segment.startX, segment.startY, segment.endX, segment.endY)
             # print("drawing segment line", segment.startY)
 
-        canvas.create_line(200, 200, x1, y1)
+        # canvas.create_line(200, 200, x1, y1)
     canvas.old_coords = mouseX, mouseY
 
 
