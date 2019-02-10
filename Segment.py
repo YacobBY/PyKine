@@ -1,8 +1,6 @@
 import math
 import tkinter as tk
 
-segmentArray = []
-
 
 class Segment:
     previousSegment = 0
@@ -14,7 +12,6 @@ class Segment:
 
     # constructor
     def __init__(self, segmentLength):
-
         self.segmentLength = segmentLength
 
     def setPreviousSegment(self, previousSegment):
@@ -46,18 +43,19 @@ class Segment:
 class InverseKinematics:
     amountOfSegments = 0
     previousSegment = 0
-    startX = 0
-    startY = 0
+    startX = 200
+    startY = 200
     segments = []
 
     # Constructor
-    def __init__(self, totalSegments, beginX, beginY, graphics):
+    def __init__(self, totalSegments, beginX, beginY):
         self.amountOfSegments = totalSegments
         self.startX = beginX
         self.startY = beginY
-        self.canvas = graphics
+        self.addSegments()
 
     def addNewSegment(self):
+        print("add new seg")
         segment = Segment(50)  # segment length
         if (self.previousSegment == 0):
             segment.startX = self.startX
@@ -69,14 +67,14 @@ class InverseKinematics:
         self.segments.append(segment)
         self.previousSegment = segment
 
-    def addSegment(self):
-        for segment in segmentArray:
+    def addSegments(self):
+        for x in range (0, self.amountOfSegments):
             self.addNewSegment()
 
     def update(self, x, y):
         self.previousSegment.placeSegment(x.y)
-        for segment in segmentArray:
-            if segment.previousSegment ==0:
+        for segment in self.segments:
+            if segment.previousSegment == 0:
                 segment.startX = self.startX
                 segment.startY = self.startY
             else:
@@ -85,15 +83,23 @@ class InverseKinematics:
 
 
 def drawLine(event):
-
+    # def __init__(self, totalSegments, beginX, beginY, graphics):
 
     canvas.delete("all")
+    # print("start line")
     x, y = event.x, event.y
     if canvas.old_coords:
         x1, y1 = canvas.old_coords
-        
+        segments = InverseKinematics(3, 200, 200).segments
+        print(segments.__len__())
+        for segment in segments:
+            canvas.create_line(segment.startY, 200, x1, y1)
+            print("drawing segment line")
+
         canvas.create_line(200, 200, x1, y1)
     canvas.old_coords = x, y
+
+
 
 
 root = tk.Tk()
