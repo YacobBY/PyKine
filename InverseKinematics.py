@@ -15,6 +15,7 @@ class InverseKinematics:
         self.startY = beginY
         self.addSegments()
 
+
     def addNewSegment(self):
         segment = Segment(60)  # segment length
         if (self.previousSegment == 0):

@@ -2,7 +2,7 @@ import tkinter as tk
 
 from InverseKinematics import InverseKinematics
 
-IK = InverseKinematics(3, 400, 400)
+IK = InverseKinematics(3, 250, 250)
 
 
 def drawLine(event):
@@ -16,7 +16,7 @@ def drawLine(event):
 
 
 root = tk.Tk()
-canvas = tk.Canvas(root, width=800, height=800)
+canvas = tk.Canvas(root, width=500, height=500)
 canvas.pack()
 canvas.old_coords = None
 root.bind('<Motion>', drawLine)
