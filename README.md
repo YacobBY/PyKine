@@ -7,3 +7,7 @@ type "python Main.py"
 
 ### Example:
 ![alt text](sc.png)
+
+###Running example: 
+
+![alt text](rg.gif)
