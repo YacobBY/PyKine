@@ -5,9 +5,6 @@ Open terminal
 Navigate terminal to folder directory (eg: D:\Coding\Workspaces\PythonWorkspace\PyKine)
 type "python Main.py"
 
-### Example:
-![alt text](sc.png)
-
 ### Running example: 
 
 ![alt text](rg.gif)
